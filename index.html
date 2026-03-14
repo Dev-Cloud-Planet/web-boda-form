@@ -630,6 +630,20 @@
         <form id="weddingForm" onsubmit="sendData(event)">
 
             <div class="form-group">
+                <label class="radio-label">Will you attend? / &iquest;Asistir&aacute;s? <span class="req">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="willAttend" value="Yes - Si" required>
+                        <span>Yes / S&iacute;</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="willAttend" value="No">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label>Correo / Email <span class="req">*</span></label>
                 <input type="email" name="email" placeholder="tu@email.com" required>
             </div>
@@ -730,6 +744,13 @@
         params.push('city=' + encodeURIComponent(form.city.value));
         params.push('state=' + encodeURIComponent(form.state.value));
         params.push('zipCode=' + encodeURIComponent(form.zipCode.value));
+
+        var attendRadios = form.querySelectorAll('input[name="willAttend"]');
+        var attendVal = '';
+        for (var i = 0; i < attendRadios.length; i++) {
+            if (attendRadios[i].checked) { attendVal = attendRadios[i].value; break; }
+        }
+        params.push('willAttend=' + encodeURIComponent(attendVal));
 
         var radios = form.querySelectorAll('input[name="planningToMove"]');
         var moveVal = '';
